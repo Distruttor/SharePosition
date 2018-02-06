@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>Main page</title>
+        <script src="/Libraries/jquery/dist/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/Libraries/bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css">
+        <script src="/Libraries/bootstrap-4.0.0-alpha.6-dist/js/bootstrap.min.js"></script>       
+        <style>
+            #map {
+             height: 800px;
+             width: 100%;
+            }
+         </style>
+
+    </head>
+    <body>
+        <div id="map"></div>
+        <div>
+            <button type="button" class="btn btn-primary" id="send" onclick="geolocation()">Send position</button>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="sockets.js"></script>
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDah1VGtH_3ih10uYKMSbsdeB_NXOJylwM&callback=initMap">
+        </script>
+        <script src="map.js"></script>
+    </body>
+
+</html>
