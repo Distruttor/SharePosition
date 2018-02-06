@@ -1,12 +1,20 @@
 const express = require('express');
 const app = express();
-const https = require('https').Server(app);
-const io = require('socket.io')(https);
-
 const fs = require('fs');
+
+//Https certificates load
+var sslOptions = {
+    key: fs.readFileSync('./certificates/key.pem'),
+    cert: fs.readFileSync('./certificates/cert.pem'),
+    passphrase: 'Trento'
+}; 
+
+const https = require('https').Server(sslOptions, app);
+const io = require('socket.io')(https);
 
 var port = 3000 || process.env.PORT;
 
+//Load public directory for client files
 app.use(express.static(__dirname + '/public'));
 
 io.on('connection', (socket) => {
@@ -16,6 +24,7 @@ io.on('connection', (socket) => {
     })
 });
 
-https.listen(port, () => {
-    console.log("Server is listening on port " + port);
-});
+https.listen(port,() => {
+    console.log("Server is running on port " + port);
+})
+
