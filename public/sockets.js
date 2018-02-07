@@ -9,5 +9,7 @@ function share_position() {
 
 socket.on('position', (data) => {
     addMarker(data);
-})
+    var audio = new Audio("/sounds/button-09.wav");
+    audio.play();
+});
 
