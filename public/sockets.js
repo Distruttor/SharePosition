@@ -1,4 +1,13 @@
 var socket = io();
 
-socket.emit('ciao',"Ciaooo");
-    
+function share_position() {
+    geolocation()
+    .then(position => {
+        socket.emit('position', position);
+    })   
+}
+
+socket.on('position', (data) => {
+    addMarker(data);
+})
+

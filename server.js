@@ -19,8 +19,9 @@ app.use(express.static(__dirname + '/public'));
 
 io.on('connection', (socket) => {
     console.log("New socket: " + socket.id);
-    io.on('ciao', (data) => {
-        console.log(data)
+    
+    socket.on('position', (data) => {
+        socket.broadcast.emit('position', data);
     })
 });
 

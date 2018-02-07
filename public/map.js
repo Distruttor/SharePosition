@@ -19,20 +19,24 @@ function addMarker(position) {
 
 function geolocation() {
     var infoWindow = new google.maps.InfoWindow;
+    var pos;
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          var pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-
-          infoWindow.setPosition(pos);
-          infoWindow.setContent('Location found.');
-          infoWindow.open(map);
-          map.setCenter(pos);
-        }, function() {
-          handleLocationError(true, infoWindow, map.getCenter());
-        });
+        return new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(function(position) {
+            pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            addMarker(pos);
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+            resolve(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+      })
       } else {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
